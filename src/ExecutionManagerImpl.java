@@ -15,6 +15,15 @@ public class ExecutionManagerImpl implements ExecutionManager {
 
         Context context = new ContextImpl(taskAmount, callback, tasks) ;
 
+        Thread lastWord = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (!context.isFinished()) {}
+                callback.run();
+            }
+        });
+        lastWord.setDaemon(true);
+        lastWord.start();
 
         return context;
     }
