@@ -20,6 +20,7 @@ public class ExecutionManagerImpl implements ExecutionManager {
             public void run() {
                 while (!context.isFinished()) {}
                 callback.run();
+                Thread.currentThread().interrupt();
             }
         });
         lastWord.setDaemon(true);
